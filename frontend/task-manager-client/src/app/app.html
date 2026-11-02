@@ -1,1 +1,18 @@
-<h1>Task Manager</h1>
+<div class="container">
+  <h1>Task Manager</h1>
+
+  <section class="form-section">
+    <h2>Новая задача</h2>
+    <app-task-form (taskCreated)="onTaskCreated($event)"></app-task-form>
+  </section>
+
+  <section class="list-section">
+    <h2>Список задач</h2>
+    <app-task-item
+      [task]="mockTask"
+      (statusToggled)="onToggleStatus($event)"
+      (taskDeleted)="onDeleteTask($event)"
+    >
+    </app-task-item>
+  </section>
+</div>

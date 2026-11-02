@@ -1,0 +1,38 @@
+<div class="task-card" [class.completed]="task().isCompleted">
+  <div class="task-content">
+    <h3>{{ task().title }}</h3>
+    @if (task().description) {
+      <p>{{ task().description }}</p>
+    }
+    <time [attr.datetime]="task().createdAt" class="task-date">
+      Создано: {{ task().createdAt | date: 'dd.MM.yyyy HH:mm' }}
+    </time>
+  </div>
+
+  <div class="task-actions">
+    <button
+      type="button"
+      (click)="statusToggled.emit(task())"
+      class="btn-toggle"
+      [attr.aria-label]="
+        task().isCompleted
+          ? 'Вернуть в работу задачу ' + task().title
+          : 'Отметить выполненной задачу ' + task().title
+      "
+    >
+      @if (task().isCompleted) {
+        Вернуть в работу
+      } @else {
+        Выполнено
+      }
+    </button>
+    <button
+      type="button"
+      (click)="taskDeleted.emit(task())"
+      class="btn-delete"
+      [attr.aria-label]="'Удалить задачу ' + task().title"
+    >
+      Удалить
+    </button>
+  </div>
+</div>

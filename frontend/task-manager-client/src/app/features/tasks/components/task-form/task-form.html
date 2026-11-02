@@ -1,0 +1,35 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form">
+  <div class="form-group">
+    <label for="title">Название задачи *</label>
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      placeholder="Что нужно сделать?"
+      [attr.aria-describedby]="isTitleInvalid ? 'title-error' : null"
+    />
+
+    @if (taskForm.get('title')?.invalid && taskForm.get('title')?.touched) {
+      <div class="error-text">
+        @if (taskForm.get('title')?.hasError('required')) {
+          Название обязательно для заполнения.
+        }
+        @if (taskForm.get('title')?.hasError('maxlength')) {
+          Название не может превышать 200 символов.
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="description">Описание (опционально)</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      placeholder="Добавьте детали..."
+      rows="3"
+    ></textarea>
+  </div>
+
+  <button type="submit" [disabled]="taskForm.invalid">Добавить задачу</button>
+</form>
