@@ -1,0 +1,40 @@
+<div class="tasks-page-container">
+  <header>
+    <h1>Task Manager</h1>
+  </header>
+
+  @if (errorMessage()) {
+    <div class="error-banner" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <section class="create-section">
+    <h2>Новая задача</h2>
+    <app-task-form (taskCreated)="onTaskCreated($event)"></app-task-form>
+  </section>
+
+  <section class="list-section">
+    <h2>Список задач</h2>
+
+    @if (isLoading()) {
+      <div class="loading-spinner" role="status" aria-live="polite">Загрузка задач...</div>
+    } @else {
+      @if (tasks().length > 0) {
+        <div class="task-list">
+          @for (task of tasks(); track task.id) {
+            <app-task-item
+              [task]="task"
+              [isProcessing]="processingId() === task.id"
+              (statusToggled)="onToggleStatus($event)"
+              (taskDeleted)="onDeleteTask($event)"
+            >
+            </app-task-item>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">У вас пока нет задач. Добавьте первую!</div>
+      }
+    }
+  </section>
+</div>

@@ -11,7 +11,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsqlOptions => npgsqlOptions.EnableRetryOnFailure())
+    );
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 
@@ -20,7 +22,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins(
+                "http://localhost:4200",
+                "http://127.0.0.1:4200"
+                )
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });

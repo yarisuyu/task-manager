@@ -12,6 +12,7 @@ import { TaskItem } from '../../../../core/models/task.model';
 })
 export class TaskItemComponent {
   task = input.required<TaskItem>();
+  isProcessing = input<boolean>(false);
 
   statusToggled = output<TaskItem>();
   taskDeleted = output<TaskItem>();

@@ -14,6 +14,7 @@
       type="button"
       (click)="statusToggled.emit(task())"
       class="btn-toggle"
+      [disabled]="isProcessing()"
       [attr.aria-label]="
         task().isCompleted
           ? 'Вернуть в работу задачу ' + task().title
@@ -30,6 +31,7 @@
       type="button"
       (click)="taskDeleted.emit(task())"
       class="btn-delete"
+      [disabled]="isProcessing()"
       [attr.aria-label]="'Удалить задачу ' + task().title"
     >
       Удалить
