@@ -1,13 +1,3 @@
-:host {
-  --primary-color: #3f51b5;
-  --text-muted: #666;
-  --error-bg: #ffebee;
-  --error-text: #d32f2f;
-  --border-color: #eee;
-  --bg-empty: #f9f9f9;
-  display: block;
-}
-
 .tasks-page-container {
   max-width: 800px;
   margin: 0 auto;
@@ -64,5 +54,5 @@ section {
   padding: 40px;
   background: var(--bg-empty);
   border-radius: 8px;
-  border: 1px dashed #ccc;
+  border: 1px dashed var(--border-color);
 }
