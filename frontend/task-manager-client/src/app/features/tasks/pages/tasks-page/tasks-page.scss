@@ -23,6 +23,8 @@ section {
 .list-header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
   align-items: baseline;
   border-bottom: 2px solid var(--border-color);
   margin-bottom: 1rem;
@@ -37,6 +39,7 @@ section {
 
 .filter-controls {
   display: flex;
+  flex-wrap: wrap;
   background: var(--bg-surface-muted);
   border-radius: var(--border-radius-sm);
   padding: 0.25rem;

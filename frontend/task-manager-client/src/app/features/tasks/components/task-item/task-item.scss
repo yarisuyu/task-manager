@@ -62,6 +62,7 @@
 
   .task-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.625rem;
     margin-left: 1rem;
 
@@ -120,9 +121,13 @@
     .task-actions {
       width: 100%;
       margin-left: 0;
+      flex-direction: column;
+      gap: 0.5rem;
 
       button {
-        flex: 1;
+        width: 100%;
+        min-width: 0;
+        padding: 0.75em 1em;
       }
     }
   }
