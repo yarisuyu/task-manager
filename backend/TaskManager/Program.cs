@@ -26,9 +26,9 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
-        builder =>
+        policyBuilder =>
         {
-            builder.WithOrigins(
+            policyBuilder.WithOrigins(
                 "http://localhost:4200",
                 "http://127.0.0.1:4200"
                 )
@@ -44,6 +44,20 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    try
+    {
+        await db.Database.MigrateAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Не удалось применить миграции базы данных при запуске.");
+    }
 }
 
 app.UseCors("AllowAngularApp");
