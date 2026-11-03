@@ -1,22 +1,22 @@
 .tasks-page-container {
-  max-width: 800px;
+  max-width: 50rem;
   margin: 0 auto;
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 header h1 {
   text-align: center;
   color: var(--primary-color);
-  margin-bottom: 32px;
+  margin-bottom: 2rem;
 }
 
 section {
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
   h2 {
-    font-size: 20px;
+    font-size: 1.25rem;
     border-bottom: 2px solid var(--border-color);
-    padding-bottom: 8px;
-    margin-bottom: 16px;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -34,16 +34,16 @@ section {
 .loading-spinner {
   text-align: center;
   color: var(--text-muted);
-  padding: 20px;
+  padding: 1.25rem;
   animation: fadeIn 0.3s ease-in-out;
 }
 
 .error-banner {
   background-color: var(--error-bg);
   color: var(--error-text);
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 16px;
+  padding: 0.75rem;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 1rem;
   animation: fadeIn 0.3s ease-in-out;
   box-shadow: 0 2px 4px rgba(211, 47, 47, 0.1);
 }
@@ -51,8 +51,8 @@ section {
 .empty-state {
   text-align: center;
   color: var(--text-muted);
-  padding: 40px;
+  padding: 2.5rem;
   background: var(--bg-empty);
-  border-radius: 8px;
+  border-radius: var(--border-radius-sm);
   border: 1px dashed var(--border-color);
 }
