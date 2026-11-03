@@ -27,6 +27,7 @@ export class TasksPageComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   tasks = signal<TaskItem[]>([]);
+  currentFilter = signal<boolean | undefined>(undefined);
   isLoading = signal<boolean>(false);
   errorMessage = signal<string | null>(null);
 
@@ -41,7 +42,7 @@ export class TasksPageComponent implements OnInit {
     this.errorMessage.set(null);
 
     this.taskService
-      .getTasks()
+      .getTasks(this.currentFilter())
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         finalize(() => this.isLoading.set(false)),
@@ -52,6 +53,13 @@ export class TasksPageComponent implements OnInit {
         },
         error: (err) => this.handleError('Не удалось загрузить задачи', err),
       });
+  }
+
+  setFilter(filter: boolean | undefined): void {
+    if (this.currentFilter() === filter) return;
+
+    this.currentFilter.set(filter);
+    this.loadTasks(); // Перезапрашиваем данные с сервера
   }
 
   onTaskCreated(request: CreateTaskRequest): void {
@@ -87,9 +95,19 @@ export class TasksPageComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.tasks.update((tasks) =>
-            tasks.map((t) => (t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t)),
-          );
+          this.tasks.update((tasks) => {
+            const updatedTasks = tasks.map((t) =>
+              t.id === task.id ? { ...t, isCompleted: !t.isCompleted } : t,
+            );
+
+            const filter = this.currentFilter();
+
+            if (filter !== undefined) {
+              return updatedTasks.filter((t) => t.isCompleted === filter);
+            }
+
+            return updatedTasks;
+          });
         },
         error: (err) => {
           this.handleError('Ошибка при обновлении статуса', err);

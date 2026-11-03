@@ -15,7 +15,25 @@
   </section>
 
   <section class="list-section">
-    <h2>Список задач</h2>
+    <div class="list-header">
+      <h2>Список задач</h2>
+
+      <div class="filter-controls" role="group" aria-label="Фильтр задач">
+        <button
+          type="button"
+          [class.active]="currentFilter() === undefined"
+          (click)="setFilter(undefined)"
+        >
+          Все
+        </button>
+        <button type="button" [class.active]="currentFilter() === false" (click)="setFilter(false)">
+          Активные
+        </button>
+        <button type="button" [class.active]="currentFilter() === true" (click)="setFilter(true)">
+          Выполненные
+        </button>
+      </div>
+    </div>
 
     @if (isLoading()) {
       <div class="loading-spinner" role="status" aria-live="polite">Загрузка задач...</div>
